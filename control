@@ -1,0 +1,9 @@
+Package: xyz.xninja.batterydata
+Name: BatteryData
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Display all available battery information
+Maintainer: ARX8x
+Author: ARX8x
+Section: Tweaks
