@@ -59,6 +59,12 @@
 			NSLog(@"append mah");
 		}
 		[specifiers addObject:[self specifierWithName:@"Battery Capacity" value:batteryCapacity isCopyable:TRUE]];
+		if([pData objectForKey:@"AppleRawMaxCapacity"] && [pData objectForKey:@"DesignCapacity"])
+		{
+			double percentage = ([((NSNumber *)[pData objectForKey:@"AppleRawMaxCapacity"]) floatValue] / [((NSNumber *)[pData objectForKey:@"DesignCapacity"]) floatValue]) * 100;
+			NSString *batteryHealth = [NSString stringWithFormat:@"%.2f%%", percentage];
+			[specifiers addObject:[self specifierWithName:@"Battery Health" value:batteryHealth isCopyable:TRUE]];
+		}
 
 		NSLog(@"added capacity data");
 
@@ -104,18 +110,17 @@
 			NSLog(@"init Charger specs");
 			NSDictionary* adaperInfo = [pData objectForKey:@"AdapterDetails"];
       NSMutableString *groupTitle = [NSMutableString stringWithString:@"Adapter Information"];
-      NSDictionary* chargerData = [pData objectForKey:@"ChargerData"];
       if([adaperInfo objectForKey:@"Description"] != nil)
       {
         [groupTitle appendFormat:@"(%@)", [adaperInfo objectForKey:@"Description"]];
       }
       [specifiers addObject:[PSSpecifier groupSpecifierWithName:groupTitle]];
       [specifiers addObject:[self specifierWithName:@"Max Voltage" value:[NSString stringWithFormat:@"%.1fv", ([(NSNumber*)[adaperInfo objectForKey:@"AdapterVoltage"] floatValue])/1000] isCopyable:TRUE]];
-      [specifiers addObject:[self specifierWithName:@"Charging Voltage" value:[NSString stringWithFormat:@"%.1fv", ([(NSNumber*)[chargerData objectForKey:@"ChargingVoltage"] floatValue])/1000] isCopyable:TRUE]];
+      // [specifiers addObject:[self specifierWithName:@"Charging Voltage" value:[NSString stringWithFormat:@"%.1fv", ([(NSNumber*)[chargerData objectForKey:@"ChargingVoltage"] floatValue])/1000] isCopyable:TRUE]];
       [specifiers addObject:[self specifierWithName:@"Max Current" value:[NSString stringWithFormat:@"%.1fA", ([(NSNumber*)[adaperInfo objectForKey:@"Amperage"] floatValue])/1000] isCopyable:TRUE]];
-      [specifiers addObject:[self specifierWithName:@"Charging Current" value:[NSString stringWithFormat:@"%.1fA", ([(NSNumber*)[chargerData objectForKey:@"ChargingCurrent"] floatValue])/1000] isCopyable:TRUE]];
+      // [specifiers addObject:[self specifierWithName:@"Charging Current" value:[NSString stringWithFormat:@"%.1fA", ([(NSNumber*)[chargerData objectForKey:@"ChargingCurrent"] floatValue])/1000] isCopyable:TRUE]];
       [specifiers addObject:[self specifierWithName:@"Max Power" value:[NSString stringWithFormat:@"%@w", [adaperInfo objectForKey:@"Watts"]] isCopyable:TRUE]];
-      [specifiers addObject:[self specifierWithName:@"Drawing Power" value:[NSString stringWithFormat:@"%.2fw", ( ([(NSNumber*)[chargerData objectForKey:@"ChargingVoltage"] floatValue]) * ([(NSNumber*)[chargerData objectForKey:@"ChargingCurrent"] floatValue]) )/1000000] isCopyable:TRUE]];
+      // [specifiers addObject:[self specifierWithName:@"Drawing Power" value:[NSString stringWithFormat:@"%.2fw", ( ([(NSNumber*)[chargerData objectForKey:@"ChargingVoltage"] floatValue]) * ([(NSNumber*)[chargerData objectForKey:@"ChargingCurrent"] floatValue]) )/1000000] isCopyable:TRUE]];
 			NSLog(@"Charger specs done, added");
 
 

@@ -17,6 +17,8 @@ Extra battery info in battery usage view
 * If a power source is connected, show its type name
 * Show power source voltage, max current, wattage etc
 
+![screenshots](https://i.imgur.com/iMgEbJB.png)
+
 **Notes**
 
 Mix and match different battery UI types and information by changing batteryUIQueryType and batteryUIType. There's not much to change but it certainly changes a few things.
