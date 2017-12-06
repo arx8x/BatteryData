@@ -1,15 +1,3 @@
-# gitignore for Theos
-packages
-packages/
-packages/*
 *.deb
-_/
-theos/
 theos
-.theos/*
-.theos
-obj/
-*/obj/
-obj
-.DS_Store
-
+packages
